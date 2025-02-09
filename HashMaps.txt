@@ -1,0 +1,15 @@
+- Stores Data in form of key:value pairs.
+- Readability of data is faster and easier as compared to other datasets.
+- time compexity is O(1).
+- In Hash Functions once data is assigned to a key, you can not update the key. Key is immutable.
+- Example:
+
+[2,5,3] : nums ----this is incorrect as arrays are mutable
+we can convert it to tuple which are immutable,
+tuple([2,5,3]) : nums  ---- this is corrrect. 
+
+- To retrieve data from Hashmaps we can use below functions,
+
+Hashmap.keys() -  gives all keys
+Hashmap.values() - gives all values
+Hashmap.items() - comibination of keys and values.

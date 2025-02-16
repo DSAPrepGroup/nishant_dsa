@@ -1,0 +1,25 @@
+<h2>Explanation</h2>
+<ol>
+    <li>The function <code>is_valid_palindrome</code> takes a string as input.</li>
+    <li>It first cleans the string by converting it to lowercase and removing all non-alphanumeric characters.</li>
+    <li>Then it compares the cleaned string with its reverse using string slicing (<code>[::-1]</code>).</li>
+    <li>If they are equal, it's a valid palindrome, and the function returns <code>True</code>. Otherwise, it returns <code>False</code>.</li>
+</ol>
+
+<div class="example">
+    <h3>Try it yourself!</h3>
+    <p>Enter a phrase in the box below and click "Check" to see if it's a valid palindrome:</p>
+    <input type="text" id="phraseInput" size="40">
+    <button onclick="checkPalindrome()">Check</button>
+    <p id="result"></p>
+</div>
+
+<script>
+    function checkPalindrome() {
+        const phrase = document.getElementById('phraseInput').value;
+        const cleaned = phrase.toLowerCase().replace(/[^a-z0-9]/g, '');
+        const isPalindrome = cleaned === cleaned.split('').reverse().join('');
+        document.getElementById('result').textContent = 
+            `"${phrase}" is ${isPalindrome ? '' : 'not '}a valid palindrome.`;
+    }
+</script>

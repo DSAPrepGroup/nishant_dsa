@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reverse Singly Linked List Visualization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .node {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 2px solid #333;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin: 0 10px;
+            position: relative;
+        }
+        .arrow {
+            display: inline-block;
+            width: 30px;
+            height: 2px;
+            background-color: #333;
+            margin: 0 -5px;
+            vertical-align: middle;
+        }
+        .pointer {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: bold;
+            color: #0066cc;
+        }
+        #controls {
+            margin-top: 20px;
+        }
+        button {
+            padding: 5px 10px;
+            margin-right: 10px;
+        }
+        #code {
+            white-space: pre;
+            font-family: monospace;
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .highlight {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <h1>Reverse Singly Linked List Visualization</h1>
+    <div id="linkedList"></div>
+    <div id="controls">
+        <button onclick="nextStep()">Next Step</button>
+        <button onclick="reset()">Reset</button>
+    </div>
+    <div id="code"></div>
+
+    <script>
+        const linkedList = [1, 2, 3, 4, 5];
+        let head = 0;
+        let prev = null;
+        let nextNode = null;
+        let currentStep = 0;
+
+        const code = `def reverseList(self, head):
+    prev = None
+    while head:
+        nextNode = head.next
+        head.next = prev
+        prev = head
+        head = nextNode
+    return prev`;
+
+        function displayList() {
+            const listDiv = document.getElementById('linkedList');
+            listDiv.innerHTML = '';
+            for (let i = 0; i < linkedList.length; i++) {
+                const nodeDiv = document.createElement('div');
+                nodeDiv.className = 'node';
+                nodeDiv.textContent = linkedList[i];
+                if (i === head) nodeDiv.innerHTML += '<span class="pointer">head</span>';
+                if (i === prev) nodeDiv.innerHTML += '<span class="pointer">prev</span>';
+                if (i === nextNode) nodeDiv.innerHTML += '<span class="pointer">next</span>';
+                listDiv.appendChild(nodeDiv);
+                if (i < linkedList.length - 1) {
+                    const arrow = document.createElement('div');
+                    arrow.className = 'arrow';
+                    listDiv.appendChild(arrow);
+                }
+            }
+        }
+
+        function highlightCode(lineNumber) {
+            const codeDiv = document.getElementById('code');
+            const lines = code.split('\n');
+            const highlightedCode = lines.map((line, index) => 
+                index === lineNumber ? `<span class="highlight">${line}</span>` : line
+            ).join('\n');
+            codeDiv.innerHTML = highlightedCode;
+        }
+
+        function nextStep() {
+            if (head === null) {
+                alert('Reversal complete!');
+                return;
+            }
+            switch (currentStep % 5) {
+                case 0:
+                    nextNode = (head + 1) % linkedList.length;
+                    highlightCode(2);
+                    break;
+                case 1:
+                    highlightCode(3);
+                    break;
+                case 2:
+                    [linkedList[head], linkedList[prev]] = [linkedList[prev], linkedList[head]];
+                    highlightCode(4);
+                    break;
+                case 3:
+                    prev = head;
+                    highlightCode(5);
+                    break;
+                case 4:
+                    head = nextNode;
+                    nextNode = null;
+                    highlightCode(6);
+                    break;
+            }
+            currentStep++;
+            displayList();
+        }
+
+        function reset() {
+            linkedList.sort((a, b) => a - b);
+            head = 0;
+            prev = null;
+            nextNode = null;
+            currentStep = 0;
+            displayList();
+            highlightCode(-1);
+        }
+
+        displayList();
+        highlightCode(-1);
+    </script>
+</body>
+</html>

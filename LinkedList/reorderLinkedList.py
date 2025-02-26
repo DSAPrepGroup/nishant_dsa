@@ -22,14 +22,14 @@ class Solution:
 
         second = slow.next
         prev = None
-        slow.next = None
+        slow.next = None # as we are splitting 2 parts so end of first part will be null
         while second:
             tmp = second.next
             second.next = prev
             prev = second
             second = tmp
 
-        # merge tow halfs
+        # merge two halfs
         first = head
         second = prev
         while second:

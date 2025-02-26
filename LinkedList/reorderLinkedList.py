@@ -1,3 +1,15 @@
+"""
+Initiution and steps:
+1.Identify the pattern.(first and last elements in samller list gets inserted 1 by 1)
+2.Divide the list in two halfs.
+3.to Divide we need to find the middle
+4.Reverse the second half
+5.merge the first and second half.
+
+we need to iterate first half in straight direction and second half in reverse direction.
+
+"""
+
 class Solution:
     def reorderList(self, head: ListNode) -> None:
         # find Middle
